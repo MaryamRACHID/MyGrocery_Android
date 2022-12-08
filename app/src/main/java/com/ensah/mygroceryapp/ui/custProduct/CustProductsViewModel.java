@@ -10,7 +10,7 @@ public class CustProductsViewModel extends ViewModel {
 
     public CustProductsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is customized products fragment");
     }
 
     public LiveData<String> getText() {

@@ -10,20 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ensah.mygroceryapp.databinding.FragmentSlideshowBinding;
+import com.ensah.mygroceryapp.databinding.FragmentCustcategoriesBinding;
 
 public class CustCategoriesFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentCustcategoriesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CustCategoriesViewModel custCategoriesViewModel = new CustCategoriesViewModel();
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentCustcategoriesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
+        final TextView textView = binding.textHome;
         custCategoriesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

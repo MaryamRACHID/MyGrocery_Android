@@ -114,12 +114,12 @@
         <Button
             android:id="@+id/idBtnRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@id/linearlayout3"
             android:layout_marginTop="20dp"
             android:textAllCaps="false"
             android:layout_gravity="center"
-            android:text="Add new category"
+            android:text="Add new list"
             android:textSize="12dp"
             app:cornerRadius="200dp"
             app:backgroundTint="@color/grey_bleu"/>
