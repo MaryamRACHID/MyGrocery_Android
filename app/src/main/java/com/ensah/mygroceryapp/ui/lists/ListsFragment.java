@@ -9,20 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.ensah.mygroceryapp.databinding.FragmentSlideshowBinding;
+import com.ensah.mygroceryapp.databinding.FragmentListsBinding;
 
 public class ListsFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentListsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ListsViewModel listsViewModel = new ListsViewModel();
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentListsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
+        final TextView textView = binding.textHome;
         listsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

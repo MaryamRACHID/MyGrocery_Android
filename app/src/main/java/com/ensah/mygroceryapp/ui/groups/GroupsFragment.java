@@ -10,18 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ensah.mygroceryapp.databinding.FragmentGroupsBinding;
 import com.ensah.mygroceryapp.databinding.FragmentHomeBinding;
 
 public class GroupsFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentGroupsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         GroupsViewModel groupsViewModel =
                 new ViewModelProvider(this).get(GroupsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentGroupsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
