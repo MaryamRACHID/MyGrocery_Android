@@ -10,7 +10,7 @@ public class ProductsViewModel extends ViewModel {
 
     public ProductsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Add a product");
+        mText.setValue("Add Product");
     }
 
     public LiveData<String> getText() {
