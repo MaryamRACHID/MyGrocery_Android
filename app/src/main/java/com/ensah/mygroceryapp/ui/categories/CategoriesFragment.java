@@ -12,8 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.ensah.mygroceryapp.R;
+import com.ensah.mygroceryapp.addCategorie;
+import com.ensah.mygroceryapp.addProduct;
 import com.ensah.mygroceryapp.databinding.FragmentCategoriesBinding;
 import com.ensah.mygroceryapp.db.DatabaseHelper;
 
@@ -36,7 +40,7 @@ public class CategoriesFragment extends Fragment {
         categoriesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         listView = (ListView) root.findViewById(R.id.catgListView);
-        buttondisplay = (Button) root.findViewById(R.id.idBtnadd);
+        buttondisplay = (Button) root.findViewById(R.id.idBtnaddcategorie);
 
         DatabaseHelper myDbHelper = new DatabaseHelper (getActivity ());
 
@@ -44,7 +48,12 @@ public class CategoriesFragment extends Fragment {
         buttondisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Fragment fragment = new addCategorie();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.ctgr, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         return root;

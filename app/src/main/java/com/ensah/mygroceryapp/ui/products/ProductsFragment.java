@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ensah.mygroceryapp.R;
+import com.ensah.mygroceryapp.addProduct;
 import com.ensah.mygroceryapp.databinding.FragmentProductsBinding;
 import com.ensah.mygroceryapp.db.DatabaseHelper;
 import com.ensah.mygroceryapp.models.Article;
@@ -47,7 +50,12 @@ public class ProductsFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Fragment fragment = new addProduct();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.product, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         return root;

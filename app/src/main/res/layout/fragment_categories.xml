@@ -5,17 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.categories.CategoriesFragment">
+    tools:context=".ui.categories.CategoriesFragment"
+    android:id="@+id/ctgr"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="@color/gris1">
+        android:background="@color/gris1"
+        >
 
 
         <LinearLayout
-            android:id="@+id/layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -44,11 +46,16 @@
                 android:listSelector="#ffd47d">
 
             </ListView>
-
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
             <Button
-                android:id="@+id/idBtnadd"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:id="@+id/idBtnaddcategorie"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
                 android:layout_below="@id/linearlayout3"
 
                 android:textAllCaps="false"
@@ -57,11 +64,11 @@
                 android:textSize="12dp"
                 app:cornerRadius="200dp"
                 app:backgroundTint="@color/grey_bleu"/>
-
-
-
-
         </LinearLayout>
+
+
+
+
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
