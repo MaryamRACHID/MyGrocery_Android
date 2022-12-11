@@ -1,12 +1,26 @@
 package com.ensah.mygroceryapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.ensah.mygroceryapp.db.DatabaseHelper;
+import com.ensah.mygroceryapp.models.Categorie;
+import com.ensah.mygroceryapp.ui.categories.CategoriesFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +59,6 @@ public class addCategorie extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +67,46 @@ public class addCategorie extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    Button addctgr;
+    EditText name;
+    EditText description;
+    private DatabaseHelper Helper;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_categorie, container, false);
+         View view=inflater.inflate(R.layout.fragment_add_categorie, container, false);
+         addctgr=view.findViewById(R.id.idAddc);
+         name=(EditText) view.findViewById(R.id.nameCategorie);
+         description=(EditText) view.findViewById(R.id.descriptionCategorie);
+         addctgr.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 String nom= String.valueOf(name.getText());
+                 String descrpt= String.valueOf(description.getText());
+                 Helper = new DatabaseHelper(getContext());
+                 if(!TextUtils.isEmpty(nom) && !TextUtils.isEmpty(descrpt)){
+                     Categorie c=new Categorie(nom,descrpt);
+                     if(Helper.createCategories(c)){
+                         Toast.makeText(getActivity(), "succefuly added!", Toast.LENGTH_SHORT).show();
+                         Fragment fragment = new CategoriesFragment();
+                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                         fragmentTransaction.replace(R.id.addcategorie, fragment);
+                         fragmentTransaction.addToBackStack(null);
+                         fragmentTransaction.commit();
+                     }
+                     else {
+                         Toast.makeText(getActivity(), "Failed!", Toast.LENGTH_SHORT).show();
+
+                     }
+                 }
+                 else {
+                     Toast.makeText(getActivity(), "messing field!", Toast.LENGTH_SHORT).show();
+
+                 }
+             }
+         });
+         return view;
     }
 }

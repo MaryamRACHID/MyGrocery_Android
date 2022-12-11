@@ -5,14 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addCategorie">
+    tools:context=".addCategorie"
+    android:id="@+id/addcategorie"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp">
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/addc">
 
          <TextView
              android:layout_width="match_parent"
@@ -37,7 +40,7 @@
             android:id="@+id/descriptionCategorie"
             />
         <Button
-            android:id="@+id/idBtnRegister"
+            android:id="@+id/idAddc"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_marginTop="25dp"
