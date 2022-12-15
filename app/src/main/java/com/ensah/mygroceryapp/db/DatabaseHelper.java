@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.ensah.mygroceryapp.models.Article;
 import com.ensah.mygroceryapp.models.Categorie;
+import com.ensah.mygroceryapp.models.Countproduct;
 import com.ensah.mygroceryapp.models.Course;
 import com.ensah.mygroceryapp.models.CourseArticle;
 import com.ensah.mygroceryapp.models.User;
@@ -24,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     private static DatabaseHelper dbHelper;
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "Grocery";
     private static final String LOG = "DatabaseHelper";
 
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String ARTICLE_NAME = "article_name";
     private static final String ARTICLE_UNIT = "article_unit";
+    private static final String ARTICLE_CATEGORIE = "article_categorie";
 
     private static final String COURSE_NAME = "course_name";
     private static final String COURSE_NOTE = "course_note";
@@ -62,7 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_ARTICLE + "( "
                     + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ARTICLE_NAME + " TEXT UNIQUE , "
-                    + ARTICLE_UNIT + " TEXT" + ")";
+                    + ARTICLE_UNIT + " TEXT , "
+                    +ARTICLE_CATEGORIE + " TEXT"+ ")";
 
     private static final String CREATE_TABLE_COURSE =
             "CREATE TABLE " + TABLE_COURSE + "( "
@@ -128,14 +131,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbHelper;
     }
 
-    public void createArticle(Article article) {
+    public boolean createArticle(Article article) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ARTICLE_NAME, article.getName());
         contentValues.put(ARTICLE_UNIT, article.getUnite());
-        sqLiteDatabase.insert(TABLE_ARTICLE, null, contentValues);
+        contentValues.put(ARTICLE_CATEGORIE,article.getCategorie());
+        int result = (int) sqLiteDatabase.insert(TABLE_ARTICLE, null, contentValues);
         Log.e(LOG, "Create Article " + article.getName());
+        if(result==-1){
+            return false;
+        }
+        else return true;
     }
     public boolean createCategories(Categorie categorie) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -174,6 +182,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COURSE_NOTE, course.getDescription());
         int result= (int) sqLiteDatabase.insert(TABLE_COURSE, null, contentValues);
         Log.e(LOG, "Create Course" + course.getName());
+        if(result==-1){
+            return false;
+        }
+        else return true;
+
+    }
+    public boolean createCourseArticle(CourseArticle coursearticle) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COURSE_ID, coursearticle.getCourse_id());
+        contentValues.put(ARTICLE_ID, coursearticle.getAticle_id());
+        contentValues.put(COUNT_ARTICLE_COURSE, coursearticle.getCounter());
+        int result= (int) sqLiteDatabase.insert(TABLE_COURSE_ARTICLE, null, contentValues);
+        Log.e(LOG, "Create Course Article");
         if(result==-1){
             return false;
         }
@@ -225,17 +248,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         result.close();
         return true;
     }
-    public void addArticleToCourse(String courseName, String articleName, int count) {
-        Course course = getCourseByName(courseName);
-        Article article = getArticleByName(articleName);
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COURSE_ID, course.getId());
-        contentValues.put(ARTICLE_ID, article.getId());
-        contentValues.put(COUNT_ARTICLE_COURSE, count);
-        sqLiteDatabase.insert(TABLE_COURSE_ARTICLE, null, contentValues);
-        Log.e(LOG, "Add  Article " + articleName + " To " + course.getName());
-    }
+
+//    public void addArticleToCourse(String courseName, String articleName, int count) {
+//        Course course = getCourseByName(courseName);
+////        Article article = getArticleByName(articleName);
+//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COURSE_ID, course.getId());
+////        contentValues.put(ARTICLE_ID, article.getId());
+//        contentValues.put(COUNT_ARTICLE_COURSE, count);
+//        sqLiteDatabase.insert(TABLE_COURSE_ARTICLE, null, contentValues);
+//        Log.e(LOG, "Add  Article " + articleName + " To " + course.getName());
+//    }
 
     public void deleteArticleToCourse(String courseName, String articleName) {
         Course course = getCourseByName(courseName);
@@ -265,6 +289,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return course;
 
     }
+    public Course getCourseById(int courseid) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Course course = null;
+        String sql = "SELECT * FROM " + TABLE_COURSE + " WHERE " + KEY_ID + " = '" + courseid + "' ";
+        Log.e(LOG, sql);
+        Cursor result = sqLiteDatabase.rawQuery(sql, null);
+        if (result.getCount() != 0) {
+            result.moveToNext();
+            int id = result.getInt(0);
+            course = new Course(id, result.getString(1), result.getString(2));
+        }
+        result.close();
+        sqLiteDatabase.close();
+        Log.e(LOG, "Get Course ");
+        return course;
+
+    }
 
     public Article getArticleByName(String articleName) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -285,16 +326,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Fetch All
-    public List<Course> getAllCourses() {
+    public List<String> getAllCourses() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        List<Course> courseList = new ArrayList<>();
+        List<String> courseList = new ArrayList<>();
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_COURSE, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     int id = result.getInt(0);
-                    Course course = new Course(id, result.getString(1), result.getString(2));
-                    courseList.add(course);
-
+                    courseList.add(result.getString(1)+"\n"+result.getString(2));
                 }
             }
         }
@@ -303,15 +342,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return courseList;
     }
 
-    public List<Article> getAllArticles() {
+    public List<String> getAllArticles() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        List<String> articleList = new ArrayList<>();
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_ARTICLE, null)) {
+            if (result.getCount() != 0) {
+                while (result.moveToNext()) {
+                    int id = result.getInt(0);
+                    articleList.add(result.getString(1)+"   : "+result.getString(2)+"\n"+result.getString(3));
+
+                }
+            }
+        }
+        Log.e(LOG, "Fetch All Articles ");
+        return articleList;
+    }
+    public List<Article> getAllArticles1() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         List<Article> articleList = new ArrayList<>();
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_ARTICLE, null)) {
             if (result.getCount() != 0) {
                 while (result.moveToNext()) {
                     int id = result.getInt(0);
-                    Article article = new Article(id, result.getString(1), result.getString(2));
-                    articleList.add(article);
+                    Article a= new Article(id,result.getString(1),result.getString(2),result.getString(3));
+                    articleList.add(a);
 
                 }
             }
@@ -320,6 +374,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return articleList;
     }
 
+//    public void ModifierCouseArticle(CourseArticle old, CourseArticle coursArticl){
+//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+//
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COUNT_ARTICLE_COURSE, coursArticl.getCounter());
+//        sqLiteDatabase.update(TABLE_COURSE_ARTICLE,contentValues,COURSE_ID +"=?");
+//        Log.e(LOG, "Create Course Article");
+//    }
     public List<CourseArticle> getAllCourseArticles() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         List<CourseArticle> CourseArticleList = new ArrayList<>();
@@ -385,12 +447,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 do {
                     categorieList.add(
                             result.getString(1)
-                                    + " | " + result.getString(2)
+                                    + " \n   "  + result.getString(2)
                     );
                 } while(result.moveToNext());
             }
             result.close();
             Log.e(LOG, "Fetch All Categories ");
             return categorieList;
+    }
+    public List<String> getAllCategoriesNames() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        List<String> categorieNameList = new ArrayList<>();
+        Cursor result = sqLiteDatabase.rawQuery("SELECT "+categories_NAME+" FROM " + TABLE_CATEGORIES, null);
+        if(result.moveToFirst()) {
+            do {
+                categorieNameList.add(result.getString(0));
+            } while(result.moveToNext());
+        }
+        result.close();
+        Log.e(LOG, "Fetch All Categories ");
+        return categorieNameList;
     }
 }

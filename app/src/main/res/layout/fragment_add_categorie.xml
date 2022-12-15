@@ -8,48 +8,74 @@
     tools:context=".addCategorie"
     android:id="@+id/addcategorie"
     >
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:background="@color/gris1"
         android:id="@+id/addc">
 
-         <TextView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="name"
-             android:textColor="@color/black"
-             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textSize="18sp"
+            android:textColor="@color/grey_bleu"
+            android:textStyle="bold|italic"
+            />
+
+        <View
+            android:layout_marginTop="20dp"
+            style="@style/Divider"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category name"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/title"
+            android:textStyle="bold"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameCategorie"
+            android:hint="Drinks"
+            android:textSize="14sp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="description"
-            android:textColor="@color/black"
+            android:text="Description"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/title"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/descriptionCategorie"
+            android:hint="Fruit juice"
+            android:textSize="14sp"
             />
         <Button
             android:id="@+id/idAddc"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="25dp"
-            android:textAllCaps="false"
             android:layout_gravity="center"
             android:text="Save"
+            app:cornerRadius="200dp"
             android:textSize="12sp"
-            app:cornerRadius="200dp" />
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearlayout3"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/grey_bleu"/>
     </LinearLayout>
+
 
 
 </FrameLayout>

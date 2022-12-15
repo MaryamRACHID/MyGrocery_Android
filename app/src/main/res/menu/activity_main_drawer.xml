@@ -30,20 +30,4 @@
     </item>
     </group>
 
-    <group android:checkableBehavior="single">
-
-        <item android:title="Personal space">
-            <menu>
-                <item
-                    android:id="@+id/nav_cust_categories"
-                    android:title="@string/menu_custom_categories" />
-                <item
-                    android:id="@+id/nav_cust_Products"
-                    android:title="@string/menu_custom_products" />
-                <item
-                    android:id="@+id/nav_Group"
-                    android:title="@string/menu_groups" />
-            </menu>
-        </item>
-    </group>
 </menu>

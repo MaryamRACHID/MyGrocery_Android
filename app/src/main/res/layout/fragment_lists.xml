@@ -5,79 +5,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lists.ListsFragment">
+    tools:context=".ui.lists.ListsFragment"
+    android:id="@+id/list"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:background="@color/gris1">
+        android:background="@color/gris1"
+        android:id="@+id/displayList">
 
 
-        <LinearLayout
-            android:id="@+id/layout1"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="10dp"
-            android:paddingTop="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="20dp"
-            android:layout_centerHorizontal="true"
-            android:background="@color/gris2"
-            tools:ignore="MissingConstraints">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/layout1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            tools:layout_editor_absoluteX="10dp"-->
+<!--            android:paddingTop="20dp"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:paddingRight="10dp"-->
+<!--            android:paddingBottom="20dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:background="@color/gris2"-->
+<!--            tools:ignore="MissingConstraints">-->
 
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="10dp"
-                android:layout_centerHorizontal="true"
-                app:cornerRadius="200dp"
-                android:background="@drawable/currentlists">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linearLayout"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                tools:layout_editor_absoluteX="10dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                app:cornerRadius="200dp"-->
+<!--                android:background="@drawable/currentlists">-->
 
-                <Button
-                    android:id="@+id/idBtnRegist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="CURRENT LISTS"
-                    android:gravity="left"
-                    android:textColor="@color/grey_bleu"
-                    android:textSize="22sp"
-                    android:background="@android:color/transparent"/>
-            </LinearLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/idBtnRegist"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:text="CURRENT LISTS"-->
+<!--                    android:gravity="left"-->
+<!--                    android:textColor="@color/grey_bleu"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:background="@android:color/transparent"/>-->
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/linearLayou"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="10dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/group">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linearLayou"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                tools:layout_editor_absoluteX="10dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:background="@drawable/group">-->
 
-                <Button
-                    android:id="@+id/idBtnRegistr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="CURRENT GROUPS"
-                    android:gravity="left"
-                    android:textColor="@color/grey_bleu"
-                    android:textSize="22sp"
-                    app:cornerRadius="200dp"
-                    android:background="@android:color/transparent"/>
-            </LinearLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/idBtnRegistr"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:text="CURRENT GROUPS"-->
+<!--                    android:gravity="left"-->
+<!--                    android:textColor="@color/grey_bleu"-->
+<!--                    android:textSize="22sp"-->
+<!--                    app:cornerRadius="200dp"-->
+<!--                    android:background="@android:color/transparent"/>-->
+<!--            </LinearLayout>-->
 
-
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/layout3"
@@ -87,8 +89,7 @@
             android:layout_below="@id/layout1"
             android:layout_centerHorizontal="true"
             android:padding="20dp"
-            tools:ignore="MissingConstraints">
-
+            tools:ignore="MissingConstraints,NotSibling">
             <TextView
                 android:id="@+id/text_home"
                 android:layout_width="match_parent"
@@ -102,7 +103,7 @@
 
 
             <ListView
-                android:id="@+id/simpleListView"
+                android:id="@+id/ListView"
                 android:layout_width="fill_parent"
                 android:layout_height="450dp"
                 android:divider="@color/grey_bleu"
@@ -112,10 +113,9 @@
             </ListView>
 
             <Button
-                android:id="@+id/idBtnRegister"
+                android:id="@+id/idBnAddtList"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@id/linearlayout3"
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
                 android:layout_gravity="center"

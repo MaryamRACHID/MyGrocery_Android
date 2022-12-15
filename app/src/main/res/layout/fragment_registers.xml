@@ -4,19 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.registers.RegistersFragment">
+    tools:context=".ui.registers.RegistersFragment"
+    android:id="@+id/register">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="@color/gris1">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_marginTop="20dp"
+            style="@style/Divider"/>
+
+
+        <ListView
+            android:id="@+id/registersList"
+            android:layout_width="fill_parent"
+            android:layout_height="520dp"
+            android:divider="@color/grey_bleu"
+            android:dividerHeight="1dp"
+            android:listSelector="#ffd47d">
+        </ListView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btnAddList"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:text="Save modification"
+            android:textSize="12dp"
+            app:cornerRadius="200dp"
+            app:backgroundTint="@color/grey_bleu"/>
+        <Button
+            android:id="@+id/AddproductsTOlist"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:text="Add products"
+            android:textSize="12dp"
+            app:cornerRadius="200dp"
+            app:backgroundTint="@color/grey_bleu"/>
+    </LinearLayout>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

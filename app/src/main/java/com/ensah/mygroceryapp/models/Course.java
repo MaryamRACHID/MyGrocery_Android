@@ -9,7 +9,6 @@ public class Course {
 
     private  String description;
 
-
     public Course(int id ,String name , String description){
         this.id=id;
         this.name=name;
@@ -42,5 +41,8 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String toString(){
+        return this.name+" ---> "+this.description;
     }
 }

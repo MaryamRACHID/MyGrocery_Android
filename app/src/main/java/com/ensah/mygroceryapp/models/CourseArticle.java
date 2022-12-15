@@ -12,6 +12,11 @@ public class CourseArticle {
         this.counter = counter;
     }
 
+    public CourseArticle(){
+        aticle_id=0;
+        course_id=0;
+        counter=0;
+    }
     public Integer getAticle_id() {
         return aticle_id;
     }

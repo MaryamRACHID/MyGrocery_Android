@@ -6,14 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.products.ProductsFragment">
+    tools:context=".ui.products.ProductsFragment"
+    android:id="@+id/product"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:id="@+id/product"
-        android:background="@color/gris1">
+        android:background="@color/gris1"
+        android:id="@+id/prod">
 
         <LinearLayout
             android:layout_width="match_parent"
